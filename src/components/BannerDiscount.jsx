@@ -7,10 +7,12 @@ const BannerDiscount = () => {
     minutes: 0,
     seconds: 0
   });
+  const [isVisible, setIsVisible] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 3); // 3 days from now
+    targetDate.setDate(targetDate.getDate() + 3);
 
     const calculateTimeLeft = () => {
       const now = new Date();
@@ -29,128 +31,234 @@ const BannerDiscount = () => {
     calculateTimeLeft();
     const timer = setInterval(calculateTimeLeft, 1000);
 
+    // Trigger entrance animation
+    setTimeout(() => setIsVisible(true), 100);
+
     return () => clearInterval(timer);
   }, []);
 
+  const handleCopyCode = () => {
+    navigator.clipboard.writeText('SS24FLASH');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const countdownItems = [
+    { label: 'Days', value: timeLeft.days },
+    { label: 'Hours', value: timeLeft.hours },
+    { label: 'Minutes', value: timeLeft.minutes },
+    { label: 'Seconds', value: timeLeft.seconds }
+  ];
+
+  const features = [
+    { icon: '🚚', label: 'Free Shipping' },
+    { icon: '🔄', label: 'Easy Returns' },
+    { icon: '🛡️', label: 'Secure Payment' },
+    { icon: '⭐', label: 'Premium Quality' }
+  ];
+
   return (
-    <section className="py-12 px-4">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 shadow-2xl">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            backgroundSize: '60px 60px'
-          }}></div>
-        </div>
+    <section className="py-16 px-4">
+      <div className="relative overflow-hidden">
+        {/* Modern Card Container */}
+        <div className={`
+          relative bg-gradient-to-br from-white to-gray-50 
+          border border-gray-200 rounded-2xl
+          shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)]
+          transition-all duration-700
+          ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+        `}>
+          {/* Accent Border */}
+          <div className="absolute inset-0 rounded-2xl border-2 border-transparent bg-gradient-to-r from-gray-900 via-gray-900 to-gray-900 bg-clip-border"></div>
 
-        <div className="relative container mx-auto">
-          <div className="flex flex-col lg:flex-row items-center justify-between p-8 lg:p-12">
-            {/* Left Content */}
-            <div className="lg:w-1/2 mb-8 lg:mb-0">
-              <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full mb-6">
-                <span className="text-white font-bold text-sm">LIMITED TIME OFFER</span>
-                <div className="ml-2 w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              </div>
-
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
-                Flash Sale!
-                <br />
-                <span className="text-yellow-300">Up to 70% OFF</span>
-              </h2>
-
-              <p className="text-white/90 text-lg mb-8 max-w-lg">
-                Don't miss out on our biggest sale of the year. Shop premium fashion at unbelievable prices. 
-                Offer ends soon!
-              </p>
-
-              {/* Progress Bar */}
-              <div className="mb-8">
-                <div className="flex justify-between text-white mb-2">
-                  <span className="font-medium">Hurry! Limited stock available</span>
-                  <span className="font-bold">85% claimed</span>
+          <div className="relative">
+            {/* Content Grid */}
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 p-8 lg:p-12">
+              {/* Left Column - Main Offer */}
+              <div className="space-y-8">
+                {/* Badge */}
+                <div className="inline-flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-gray-900 rounded-full animate-pulse"></div>
+                  <span className="text-sm tracking-widest uppercase text-gray-900 font-medium">
+                    Spring Flash Sale
+                  </span>
                 </div>
-                <div className="w-full bg-white/30 rounded-full h-3">
-                  <div 
-                    className="bg-gradient-to-r from-yellow-400 to-orange-400 h-3 rounded-full transition-all duration-1000"
-                    style={{ width: '85%' }}
-                  ></div>
-                </div>
-              </div>
 
-              {/* Features */}
-              <div className="flex flex-wrap gap-4">
-                <div className="flex items-center text-white">
-                  <i className="fas fa-shipping-fast mr-2"></i>
-                  <span>Free Shipping</span>
+                {/* Main Heading */}
+                <div>
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-gray-900 leading-[0.9] mb-4">
+                    End of
+                    <br />
+                    <span className="font-normal">Season Sale</span>
+                  </h2>
+                  
+                  <div className="inline-flex items-center bg-gradient-to-r from-gray-900 to-gray-700 text-white px-6 py-3 rounded-full">
+                    <span className="text-3xl font-light mr-3">Up to</span>
+                    <span className="text-4xl font-bold">70%</span>
+                    <span className="text-3xl font-light ml-3">OFF</span>
+                  </div>
                 </div>
-                <div className="flex items-center text-white">
-                  <i className="fas fa-shield-alt mr-2"></i>
-                  <span>Secure Payment</span>
-                </div>
-                <div className="flex items-center text-white">
-                  <i className="fas fa-undo mr-2"></i>
-                  <span>30-Day Returns</span>
-                </div>
-              </div>
-            </div>
 
-            {/* Right Content - Countdown */}
-            <div className="lg:w-1/2 flex justify-center lg:justify-end">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                <h3 className="text-white text-2xl font-bold mb-6 text-center">Offer Ends In:</h3>
-                
-                {/* Countdown Timer */}
-                <div className="grid grid-cols-4 gap-4 mb-8">
-                  {[
-                    { label: 'Days', value: timeLeft.days },
-                    { label: 'Hours', value: timeLeft.hours },
-                    { label: 'Minutes', value: timeLeft.minutes },
-                    { label: 'Seconds', value: timeLeft.seconds }
-                  ].map((item, index) => (
-                    <div key={index} className="text-center">
-                      <div className="bg-white rounded-xl p-4 mb-2">
-                        <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                          {item.value.toString().padStart(2, '0')}
-                        </span>
-                      </div>
-                      <span className="text-white font-medium text-sm">{item.label}</span>
+                {/* Description */}
+                <p className="text-gray-600 text-lg leading-relaxed max-w-lg">
+                  Final reductions on our curated collection. Premium quality essentials at exceptional prices. 
+                  Limited quantities remaining.
+                </p>
+
+                {/* Features Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+                  {features.map((feature, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <span className="text-xl">{feature.icon}</span>
+                      <span className="text-sm font-medium text-gray-900">{feature.label}</span>
                     </div>
                   ))}
                 </div>
+              </div>
 
-                {/* CTA Button */}
-                <button className="w-full bg-gradient-to-r from-white to-gray-100 text-orange-600 py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transform transition-all duration-300 flex items-center justify-center">
-                  <i className="fas fa-bolt mr-2"></i>
-                  Shop Now & Save 70%
-                  <i className="fas fa-arrow-right ml-2"></i>
-                </button>
+              {/* Right Column - Countdown & CTA */}
+              <div className="space-y-8">
+                {/* Countdown Timer - Modern */}
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-4 h-px bg-gray-900"></div>
+                    <span className="text-sm tracking-widest uppercase text-gray-500">Ends in</span>
+                  </div>
+                  
+                  <div className="grid grid-cols-4 gap-3">
+                    {countdownItems.map((item, index) => (
+                      <div key={index} className="text-center">
+                        <div className="relative">
+                          <div className="aspect-square bg-gradient-to-b from-gray-50 to-white border border-gray-200 rounded-xl flex items-center justify-center mb-2">
+                            <span className="text-3xl md:text-4xl font-light text-gray-900 tabular-nums">
+                              {item.value.toString().padStart(2, '0')}
+                            </span>
+                          </div>
+                          {/* Pulsing Dot */}
+                          {index === 3 && (
+                            <div className="absolute -top-1 -right-1 w-2 h-2 bg-gray-900 rounded-full animate-ping"></div>
+                          )}
+                        </div>
+                        <span className="text-xs tracking-wider uppercase text-gray-500">{item.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Progress Indicator */}
+                <div className="space-y-3">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Limited stock remaining</span>
+                    <span className="font-medium text-gray-900">85% claimed</span>
+                  </div>
+                  <div className="h-1 bg-gray-100 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-gray-900 to-gray-700 transition-all duration-1000"
+                      style={{ width: '85%' }}
+                    />
+                  </div>
+                </div>
 
                 {/* Discount Code */}
-                <div className="mt-6 text-center">
-                  <p className="text-white/80 mb-2">Use code at checkout:</p>
-                  <div className="inline-flex items-center bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
-                    <code className="text-white font-mono font-bold text-xl">FLASH70</code>
-                    <button className="ml-3 text-white hover:text-yellow-300">
-                      <i className="fas fa-copy"></i>
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-4 h-px bg-gray-900"></div>
+                    <span className="text-sm tracking-widest uppercase text-gray-500">Promo Code</span>
+                  </div>
+                  <div className="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-xl p-4 group hover:border-gray-300 transition-colors duration-300">
+                    <div>
+                      <span className="text-sm text-gray-500 mb-1 block">Apply at checkout</span>
+                      <code className="text-2xl font-mono font-bold text-gray-900">SS24FLASH</code>
+                    </div>
+                    <button
+                      onClick={handleCopyCode}
+                      className="relative px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 rounded-lg transition-colors duration-300"
+                    >
+                      <span className={copied ? 'opacity-0' : 'opacity-100'}>
+                        Copy
+                      </span>
+                      <span className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
+                        copied ? 'opacity-100' : 'opacity-0'
+                      }`}>
+                        Copied!
+                      </span>
                     </button>
                   </div>
                 </div>
+
+                {/* CTA Button */}
+                <button className="group relative w-full bg-gradient-to-r from-gray-900 to-gray-800 text-white py-4 rounded-xl font-medium tracking-wider hover:shadow-xl transition-all duration-300 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <span className="relative flex items-center justify-center space-x-3">
+                    <span>Shop the Collection</span>
+                    <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </button>
               </div>
             </div>
+
+            {/* Decorative Elements */}
+            <div className="absolute -top-8 -left-8 w-32 h-32 bg-gradient-to-br from-gray-900/5 to-transparent rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-gradient-to-br from-gray-900/5 to-transparent rounded-full blur-3xl"></div>
+            
+            {/* Corner Accents */}
+            <div className="absolute top-4 left-4 w-8 h-8 border-t border-l border-gray-900/10"></div>
+            <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-gray-900/10"></div>
+            <div className="absolute bottom-4 left-4 w-8 h-8 border-b border-l border-gray-900/10"></div>
+            <div className="absolute bottom-4 right-4 w-8 h-8 border-b border-r border-gray-900/10"></div>
           </div>
         </div>
 
-        {/* Floating Elements */}
-        <div className="absolute -top-6 -left-6 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-        <div className="absolute -bottom-6 -right-6 w-40 h-40 bg-pink-500/20 rounded-full blur-3xl"></div>
+        {/* Floating Badge */}
+        <div className={`
+          absolute -top-4 left-1/2 transform -translate-x-1/2
+          bg-gradient-to-r from-gray-900 to-gray-800 text-white 
+          px-6 py-2 rounded-full text-sm font-medium tracking-wider
+          shadow-lg transition-all duration-700
+          ${isVisible ? 'opacity-100 -translate-y-0' : 'opacity-0 -translate-y-4'}
+        `}>
+          Limited Time Offer
+        </div>
+
+        {/* Additional Info */}
+        <div className="text-center mt-6">
+          <p className="text-sm text-gray-500">
+            *Discount applies to selected items. Valid until stock lasts. Minimum purchase may apply.
+          </p>
+        </div>
       </div>
 
-      {/* Additional Info */}
-      <div className="mt-8 text-center">
-        <p className="text-gray-600">
-          *Discount applies to selected items. Minimum purchase $50. Limited quantities available.
-        </p>
-      </div>
+      <style jsx global>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes pulse-subtle {
+          0%, 100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.7;
+          }
+        }
+
+        .animate-fadeInUp {
+          animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .animate-pulse-subtle {
+          animation: pulse-subtle 2s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 };

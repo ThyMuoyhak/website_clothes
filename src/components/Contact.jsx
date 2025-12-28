@@ -1,4 +1,4 @@
-// Contact.jsx
+// Contact.jsx - Modern Redesign
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -23,137 +23,146 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
     setTimeout(() => {
       console.log('Form submitted:', formData);
       setIsSubmitting(false);
       setSubmitSuccess(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
       
-      // Reset success message after 5 seconds
       setTimeout(() => setSubmitSuccess(false), 5000);
     }, 1500);
   };
 
   const contactInfo = [
     {
-      icon: 'fas fa-phone',
-      title: 'Call Us',
-      details: ['1-800-FASHION', '(555) 123-4567'],
-      action: 'Available 24/7'
+      icon: '📞',
+      title: 'Phone',
+      details: ['+1 (555) 123-4567'],
+      action: 'Mon-Fri, 9AM-6PM EST',
+      color: 'bg-blue-50'
     },
     {
-      icon: 'fas fa-envelope',
-      title: 'Email Us',
-      details: ['support@fashionhub.com', 'sales@fashionhub.com'],
-      action: 'Response within 24 hours'
+      icon: '✉️',
+      title: 'Email',
+      details: ['contact@aesthetes.com'],
+      action: 'Response within 24h',
+      color: 'bg-green-50'
     },
     {
-      icon: 'fas fa-map-marker-alt',
-      title: 'Visit Us',
-      details: ['123 Fashion Ave', 'San Francisco, CA 94107'],
-      action: 'Mon-Fri: 9AM-6PM'
-    },
-    {
-      icon: 'fas fa-headset',
-      title: 'Live Chat',
-      details: ['Click the chat icon below'],
-      action: 'Available now'
+      icon: '📍',
+      title: 'Studio',
+      details: ['123 Design Ave', 'New York, NY 10001'],
+      action: 'By appointment',
+      color: 'bg-amber-50'
     }
   ];
 
   const faqs = [
     {
       question: 'What is your return policy?',
-      answer: 'We offer a 30-day return policy for all unworn items with original tags. Free returns for orders over $50.'
+      answer: 'We offer a 30-day return policy for unworn items. Free returns for orders over $100.'
     },
     {
-      question: 'How long does shipping take?',
-      answer: 'Standard shipping takes 3-5 business days. Express shipping is 1-2 business days. International shipping takes 7-14 business days.'
+      question: 'Do you offer international shipping?',
+      answer: 'Yes, we ship to 50+ countries with expedited options available.'
     },
     {
-      question: 'Do you ship internationally?',
-      answer: 'Yes! We ship to over 50 countries worldwide. Shipping costs and delivery times vary by location.'
+      question: 'How do I track my order?',
+      answer: 'Tracking information is sent via email once your order ships.'
     },
     {
-      question: 'Are your products sustainable?',
-      answer: '85% of our products are made from sustainable materials. Look for the green leaf icon on product pages.'
+      question: 'Are your materials sustainable?',
+      answer: 'All our materials are sustainably sourced and ethically produced.'
     },
     {
-      question: 'How can I track my order?',
-      answer: 'Once your order ships, you will receive a tracking number via email. You can also track orders in your account.'
+      question: 'Do you offer custom sizing?',
+      answer: 'Yes, custom sizing is available for select collections.'
     },
     {
       question: 'What payment methods do you accept?',
-      answer: 'We accept all major credit cards, PayPal, Apple Pay, Google Pay, and Shop Pay.'
+      answer: 'We accept all major credit cards, PayPal, and Apple Pay.'
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-20">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Get In Touch
+    <div className="min-h-screen bg-white">
+      {/* Hero */}
+      <div className="border-b border-gray-200">
+        <div className="container mx-auto px-4 py-24">
+          <div className="max-w-4xl">
+            <div className="inline-flex items-center space-x-2 mb-8">
+              <div className="w-8 h-px bg-gray-900"></div>
+              <span className="text-sm tracking-widest uppercase text-gray-500">Contact</span>
+              <div className="w-8 h-px bg-gray-900"></div>
+            </div>
+            
+            <h1 className="text-5xl md:text-6xl font-light tracking-tight mb-6">
+              Get in Touch
             </h1>
-            <p className="text-xl text-white/90 mb-8">
-              We're here to help! Reach out to us for any questions or concerns.
+            
+            <p className="text-gray-600 text-lg leading-relaxed max-w-2xl">
+              Have questions about our collections or need assistance? 
+              Our team is here to help with personalized support.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Contact Information */}
-      <div className="py-16 bg-white">
+      {/* Contact Info */}
+      <div className="py-16">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {contactInfo.map((info, index) => (
-              <div key={index} className="text-center p-6 bg-gray-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="w-16 h-16 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <i className={`${info.icon} text-2xl text-indigo-600`}></i>
+              <div key={index} className="text-center group">
+                <div className={`w-16 h-16 ${info.color} rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <span className="text-2xl">{info.icon}</span>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{info.title}</h3>
-                <div className="space-y-1 mb-4">
+                <h3 className="text-lg font-light text-gray-900 mb-2">{info.title}</h3>
+                <div className="space-y-1 mb-3">
                   {info.details.map((detail, i) => (
-                    <p key={i} className="text-gray-600">{detail}</p>
+                    <p key={i} className="text-gray-600 text-sm">{detail}</p>
                   ))}
                 </div>
-                <p className="text-sm text-indigo-600 font-medium">{info.action}</p>
+                <p className="text-xs text-gray-500">{info.action}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Contact Form & Map */}
-      <div className="py-16 bg-gray-50">
+      {/* Form & Info Grid */}
+      <div className="py-16 border-t border-gray-200">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Contact Form */}
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
-                
+              <div>
+                <div className="mb-8">
+                  <div className="inline-flex items-center space-x-2 mb-4">
+                    <div className="w-4 h-px bg-gray-900"></div>
+                    <span className="text-sm tracking-widest uppercase text-gray-500">Send Message</span>
+                  </div>
+                  
+                  <h2 className="text-2xl font-light mb-6">Contact Form</h2>
+                </div>
+
                 {submitSuccess && (
-                  <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                    <div className="flex items-center">
-                      <i className="fas fa-check-circle text-green-500 mr-3 text-xl"></i>
-                      <div>
-                        <p className="font-medium text-green-800">Message sent successfully!</p>
-                        <p className="text-green-700 text-sm">We'll get back to you within 24 hours.</p>
-                      </div>
+                  <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start">
+                    <svg className="w-5 h-5 text-green-500 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <div>
+                      <p className="text-sm font-medium text-green-800">Message sent successfully</p>
+                      <p className="text-sm text-green-700">We'll respond within 24 hours</p>
                     </div>
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit}>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Your Name *
+                        Name
                       </label>
                       <input
                         type="text"
@@ -161,13 +170,13 @@ const Contact = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                        placeholder="John Doe"
+                        className="w-full px-4 py-3 border border-gray-300 rounded focus:ring-1 focus:ring-gray-900 focus:border-transparent transition-colors text-sm"
+                        placeholder="Your name"
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address *
+                        Email
                       </label>
                       <input
                         type="email"
@@ -175,36 +184,36 @@ const Contact = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                        placeholder="john@example.com"
+                        className="w-full px-4 py-3 border border-gray-300 rounded focus:ring-1 focus:ring-gray-900 focus:border-transparent transition-colors text-sm"
+                        placeholder="your@email.com"
                       />
                     </div>
                   </div>
 
-                  <div className="mb-6">
+                  <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Subject *
+                      Subject
                     </label>
                     <select
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 border border-gray-300 rounded focus:ring-1 focus:ring-gray-900 focus:border-transparent transition-colors text-sm"
                     >
                       <option value="">Select a subject</option>
-                      <option value="order">Order Inquiry</option>
-                      <option value="return">Returns & Exchanges</option>
-                      <option value="product">Product Questions</option>
-                      <option value="shipping">Shipping Information</option>
-                      <option value="feedback">Feedback & Suggestions</option>
+                      <option value="general">General Inquiry</option>
+                      <option value="order">Order Support</option>
+                      <option value="returns">Returns & Exchanges</option>
+                      <option value="wholesale">Wholesale Inquiry</option>
+                      <option value="press">Press & Media</option>
                       <option value="other">Other</option>
                     </select>
                   </div>
 
-                  <div className="mb-6">
+                  <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Message *
+                      Message
                     </label>
                     <textarea
                       name="message"
@@ -212,23 +221,23 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       rows="6"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
-                      placeholder="How can we help you?"
+                      className="w-full px-4 py-3 border border-gray-300 rounded focus:ring-1 focus:ring-gray-900 focus:border-transparent transition-colors text-sm resize-none"
+                      placeholder="How can we help?"
                     ></textarea>
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
+                    className={`w-full py-3 px-6 text-sm font-medium transition-colors duration-300 ${
                       isSubmitting
-                        ? 'bg-gray-400 cursor-not-allowed'
-                        : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-xl hover:scale-105'
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        : 'bg-gray-900 text-white hover:bg-gray-800'
                     }`}
                   >
                     {isSubmitting ? (
                       <div className="flex items-center justify-center">
-                        <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-3"></div>
+                        <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white mr-2"></div>
                         Sending...
                       </div>
                     ) : (
@@ -238,56 +247,84 @@ const Contact = () => {
                 </form>
               </div>
 
-              {/* Map & FAQ */}
+              {/* Side Information */}
               <div className="space-y-8">
-                {/* Map */}
-                <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-                  <div className="h-64 bg-gradient-to-r from-indigo-100 to-purple-100 flex items-center justify-center">
-                    <div className="text-center">
-                      <i className="fas fa-map-marker-alt text-4xl text-indigo-600 mb-4"></i>
-                      <p className="text-gray-700 font-medium">San Francisco Headquarters</p>
-                      <p className="text-gray-600">123 Fashion Ave, San Francisco, CA 94107</p>
+                {/* Studio Info */}
+                <div className="border border-gray-200 rounded-lg p-6">
+                  <div className="flex items-start space-x-4 mb-6">
+                    <div className="flex-shrink-0 w-12 h-12 bg-gray-100 rounded flex items-center justify-center">
+                      <span className="text-lg">🏢</span>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-light text-gray-900 mb-2">Studio Visit</h3>
+                      <p className="text-sm text-gray-600">
+                        Schedule a private appointment to explore our collections in person.
+                      </p>
                     </div>
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-lg font-bold text-gray-900 mb-4">Our Headquarters</h3>
-                    <div className="space-y-2">
-                      <div className="flex items-center text-gray-600">
-                        <i className="fas fa-clock mr-3"></i>
-                        <span>Mon-Fri: 9AM-6PM PST</span>
-                      </div>
-                      <div className="flex items-center text-gray-600">
-                        <i className="fas fa-phone mr-3"></i>
-                        <span>(555) 123-4567</span>
-                      </div>
-                      <div className="flex items-center text-gray-600">
-                        <i className="fas fa-envelope mr-3"></i>
-                        <span>visit@fashionhub.com</span>
-                      </div>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-center text-sm text-gray-700">
+                      <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Mon-Fri, 10AM-6PM by appointment
+                    </div>
+                    <div className="flex items-center text-sm text-gray-700">
+                      <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      123 Design Ave, New York, NY 10001
                     </div>
                   </div>
                 </div>
 
                 {/* Quick Links */}
-                <div className="bg-white rounded-2xl shadow-lg p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Links</h3>
+                <div className="border border-gray-200 rounded-lg p-6">
+                  <h3 className="text-lg font-light text-gray-900 mb-4">Quick Links</h3>
                   <div className="space-y-3">
-                    <Link to="/faq" className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                      <span className="text-gray-700">FAQ & Help Center</span>
-                      <i className="fas fa-chevron-right text-gray-400"></i>
+                    <Link to="/faq" className="flex items-center justify-between text-sm text-gray-600 hover:text-gray-900 transition-colors py-2 border-b border-gray-100">
+                      <span>FAQ & Support</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </Link>
-                    <Link to="/shipping" className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                      <span className="text-gray-700">Shipping Information</span>
-                      <i className="fas fa-chevron-right text-gray-400"></i>
+                    <Link to="/shipping" className="flex items-center justify-between text-sm text-gray-600 hover:text-gray-900 transition-colors py-2 border-b border-gray-100">
+                      <span>Shipping Information</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </Link>
-                    <Link to="/returns" className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                      <span className="text-gray-700">Returns & Exchanges</span>
-                      <i className="fas fa-chevron-right text-gray-400"></i>
+                    <Link to="/returns" className="flex items-center justify-between text-sm text-gray-600 hover:text-gray-900 transition-colors py-2 border-b border-gray-100">
+                      <span>Returns & Exchanges</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </Link>
-                    <Link to="/size-guide" className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                      <span className="text-gray-700">Size Guide</span>
-                      <i className="fas fa-chevron-right text-gray-400"></i>
+                    <Link to="/size-guide" className="flex items-center justify-between text-sm text-gray-600 hover:text-gray-900 transition-colors py-2">
+                      <span>Size Guide</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </Link>
+                  </div>
+                </div>
+
+                {/* Response Time */}
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <div className="flex items-center space-x-3">
+                    <div className="flex-shrink-0">
+                      <div className="w-10 h-10 bg-gray-900 rounded-full flex items-center justify-center">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-medium text-gray-900">Response Time</h4>
+                      <p className="text-sm text-gray-600">Typically within 24 hours</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -297,94 +334,102 @@ const Contact = () => {
       </div>
 
       {/* FAQ Section */}
-      <div className="py-16 bg-white">
+      <div className="py-24 border-t border-gray-200">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Frequently Asked Questions
-              </h2>
-              <p className="text-gray-600">
-                Find quick answers to common questions
-              </p>
+              <div className="inline-flex items-center space-x-2 mb-4">
+                <div className="w-4 h-px bg-gray-900"></div>
+                <span className="text-sm tracking-widest uppercase text-gray-500">FAQ</span>
+                <div className="w-4 h-px bg-gray-900"></div>
+              </div>
+              
+              <h2 className="text-2xl font-light mb-6">Common Questions</h2>
             </div>
 
             <div className="space-y-4">
               {faqs.map((faq, index) => (
-                <div key={index} className="border border-gray-200 rounded-xl overflow-hidden">
+                <div key={index} className="border-b border-gray-200 last:border-b-0">
                   <button
-                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                    className="w-full py-4 text-left flex items-center justify-between hover:text-gray-900 transition-colors"
                     onClick={() => {
-                      // Toggle FAQ answer
                       const answer = document.getElementById(`faq-answer-${index}`);
+                      const icon = document.getElementById(`faq-icon-${index}`);
                       answer.classList.toggle('hidden');
+                      icon.classList.toggle('rotate-180');
                     }}
                   >
-                    <span className="font-medium text-gray-900">{faq.question}</span>
-                    <i className="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                    <span className="font-light text-gray-900">{faq.question}</span>
+                    <svg 
+                      id={`faq-icon-${index}`}
+                      className="w-4 h-4 text-gray-400 transition-transform duration-300" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
                   </button>
-                  <div id={`faq-answer-${index}`} className="hidden px-6 py-4 bg-gray-50">
-                    <p className="text-gray-600">{faq.answer}</p>
+                  <div id={`faq-answer-${index}`} className="hidden pb-4">
+                    <p className="text-gray-600 text-sm">{faq.answer}</p>
                   </div>
                 </div>
               ))}
             </div>
 
             <div className="mt-12 text-center">
-              <p className="text-gray-600 mb-4">Still have questions?</p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  to="/faq"
-                  className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors"
-                >
-                  Visit FAQ Center
-                </Link>
-                <button
-                  onClick={() => {
-                    // Scroll to contact form
-                    document.querySelector('form')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all"
-                >
-                  Ask a Question
-                </button>
-              </div>
+              <p className="text-sm text-gray-600 mb-4">Need more help?</p>
+              <button
+                onClick={() => {
+                  document.querySelector('form')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="inline-flex items-center text-sm text-gray-900 hover:text-gray-700 transition-colors group"
+              >
+                <span>Send us a message</span>
+                <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="py-16 bg-gradient-to-r from-indigo-50 to-purple-50">
+      {/* CTA */}
+      <div className="py-24 border-t border-gray-200">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
-              Ready to Start Shopping?
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-2xl font-light mb-6">
+              Explore Our Collections
             </h2>
-            <p className="text-lg text-gray-600 mb-8">
-              Explore our collection of sustainable fashion pieces
+            
+            <p className="text-gray-600 mb-8 text-sm leading-relaxed max-w-2xl mx-auto">
+              Discover our curated selection of sustainable essentials and statement pieces.
             </p>
+            
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/products"
-                className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold hover:shadow-xl transition-all duration-300 hover:scale-105"
+                className="px-6 py-3 bg-gray-900 text-white text-sm font-medium hover:bg-gray-800 transition-colors duration-300"
               >
-                Shop Now
+                Shop Collections
               </Link>
               <Link
                 to="/about"
-                className="px-8 py-3 border-2 border-indigo-600 text-indigo-600 rounded-xl font-bold hover:bg-indigo-50 transition-all duration-300"
+                className="px-6 py-3 border border-gray-900 text-gray-900 text-sm font-medium hover:bg-gray-50 transition-colors duration-300"
               >
-                Learn About Us
+                About Us
               </Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Live Chat Button */}
-      <button className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all duration-300 z-50">
-        <i className="fas fa-comment text-xl"></i>
+      {/* Chat Button */}
+      <button className="fixed bottom-8 right-8 w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors duration-300 shadow-lg z-50">
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
       </button>
     </div>
   );

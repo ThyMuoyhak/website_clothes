@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 const Footer = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [isHovered, setIsHovered] = useState(null);
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -13,210 +14,214 @@ const Footer = () => {
     }
   };
 
+  const footerSections = [
+    {
+      title: 'Collections',
+      items: ['Essentials', 'Contemporary', 'Designer', 'Sustainable', 'Seasonal']
+    },
+    {
+      title: 'Services',
+      items: ['Personal Styling', 'Gift Cards', 'Wishlist', 'Size Guide', 'Alterations']
+    },
+    {
+      title: 'About',
+      items: ['Our Story', 'Sustainability', 'Careers', 'Press', 'Showrooms']
+    },
+    {
+      title: 'Support',
+      items: ['Contact', 'Shipping', 'Returns', 'FAQ', 'Privacy Policy']
+    }
+  ];
+
+  const paymentMethods = [
+    { name: 'Visa', icon: 'cc-visa' },
+    { name: 'Mastercard', icon: 'cc-mastercard' },
+    { name: 'Amex', icon: 'cc-amex' },
+    { name: 'PayPal', icon: 'cc-paypal' },
+    { name: 'Apple Pay', icon: 'cc-apple-pay' }
+  ];
+
+  const trustBadges = [
+    { icon: '🚚', title: 'Free Shipping', desc: 'On all orders' },
+    { icon: '🔄', title: 'Easy Returns', desc: '30 days' },
+    { icon: '🛡️', title: 'Secure', desc: 'Payment' },
+    { icon: '⭐', title: 'Premium', desc: 'Quality' }
+  ];
+
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-gray-900 to-black text-white">
+    <footer className="bg-white border-t border-gray-200">
       {/* Main Footer */}
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
-          {/* Brand & Description */}
-          <div className="lg:col-span-2">
-            <a href="/" className="flex items-center space-x-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-2xl">F</span>
+      <div className="container mx-auto px-4 py-16 md:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* Brand & Newsletter */}
+          <div className="lg:col-span-4">
+            {/* Brand */}
+            <div className="mb-8">
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-xl">A</span>
+                </div>
+                <div>
+                  <div className="text-2xl font-light tracking-tight text-gray-900">AESTHETE</div>
+                  <div className="text-xs tracking-widest uppercase text-gray-500">COLLECTIVE</div>
+                </div>
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                FashionHub
-              </span>
-            </a>
-            <p className="text-gray-400 mb-6 max-w-md">
-              Premium fashion for the modern individual. Discover curated collections that blend style, comfort, and quality craftsmanship.
-            </p>
-            
-            {/* Social Media */}
-            <div className="flex space-x-4 mb-8">
-              {['facebook', 'twitter', 'instagram', 'pinterest', 'youtube'].map((platform) => (
-                <a 
+              <p className="text-gray-600 leading-relaxed max-w-md">
+                Curated essentials and statement pieces for the modern lifestyle. 
+                Quality craftsmanship meets contemporary design.
+              </p>
+            </div>
+
+            {/* Newsletter */}
+            <div className="mb-8">
+              <div className="flex items-center space-x-2 mb-4">
+                <div className="w-4 h-px bg-gray-900"></div>
+                <span className="text-sm tracking-widest uppercase text-gray-500">Newsletter</span>
+              </div>
+              
+              <form onSubmit={handleSubscribe} className="space-y-4">
+                <div className="relative">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email address"
+                    className="w-full bg-gray-50 border border-gray-300 rounded-lg py-3 px-4 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-transparent text-sm"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white rounded px-4 py-1.5 text-sm font-medium hover:bg-gray-800 transition-colors duration-300"
+                  >
+                    Join
+                  </button>
+                </div>
+                
+                {subscribed && (
+                  <div className="flex items-center text-green-600 text-sm">
+                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                    Thank you for subscribing
+                  </div>
+                )}
+                
+                <p className="text-xs text-gray-500">
+                  Subscribe for exclusive updates, new arrivals, and special offers.
+                </p>
+              </form>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex items-center space-x-4">
+              {['Twitter', 'Instagram', 'LinkedIn', 'Pinterest'].map((platform) => (
+                <a
                   key={platform}
-                  href="#" 
-                  className="w-10 h-10 bg-gray-800 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-500 rounded-lg flex items-center justify-center transition-all duration-300 group"
+                  href="#"
+                  className="text-gray-400 hover:text-gray-900 transition-colors duration-300 text-sm"
                   aria-label={platform}
                 >
-                  <i className={`fab fa-${platform} text-gray-400 group-hover:text-white`}></i>
+                  {platform}
                 </a>
               ))}
             </div>
-
-            {/* App Stores */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href="#" className="flex items-center bg-gray-800 hover:bg-gray-700 rounded-xl p-3 transition-colors">
-                <i className="fab fa-apple text-2xl mr-3"></i>
-                <div>
-                  <div className="text-xs text-gray-400">Download on the</div>
-                  <div className="font-bold">App Store</div>
-                </div>
-              </a>
-              <a href="#" className="flex items-center bg-gray-800 hover:bg-gray-700 rounded-xl p-3 transition-colors">
-                <i className="fab fa-google-play text-xl mr-3"></i>
-                <div>
-                  <div className="text-xs text-gray-400">Get it on</div>
-                  <div className="font-bold">Google Play</div>
-                </div>
-              </a>
-            </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-bold mb-6 flex items-center">
-              <span className="w-2 h-6 bg-gradient-to-b from-indigo-500 to-purple-500 rounded-full mr-3"></span>
-              Shop
-            </h3>
-            <ul className="space-y-3">
-              {['Men', 'Women', 'Kids', 'Accessories', 'New Arrivals', 'Best Sellers', 'Sale'].map((item) => (
-                <li key={item}>
-                  <a 
-                    href="#" 
-                    className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group"
-                  >
-                    <i className="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                    {item}
-                  </a>
-                </li>
+          {/* Navigation Sections */}
+          <div className="lg:col-span-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {footerSections.map((section, sectionIndex) => (
+                <div key={sectionIndex}>
+                  <h3 className="text-sm font-medium text-gray-900 mb-4 tracking-wider uppercase">
+                    {section.title}
+                  </h3>
+                  <ul className="space-y-3">
+                    {section.items.map((item, itemIndex) => (
+                      <li key={itemIndex}>
+                        <a
+                          href="#"
+                          className="text-gray-600 hover:text-gray-900 transition-colors duration-300 text-sm flex items-center group"
+                          onMouseEnter={() => setIsHovered(`${sectionIndex}-${itemIndex}`)}
+                          onMouseLeave={() => setIsHovered(null)}
+                        >
+                          <span className={`w-1.5 h-1.5 rounded-full mr-2 transition-all duration-300 ${
+                            isHovered === `${sectionIndex}-${itemIndex}` ? 'bg-gray-900' : 'bg-transparent'
+                          }`}></span>
+                          {item}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div>
-            <h3 className="text-lg font-bold mb-6 flex items-center">
-              <span className="w-2 h-6 bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full mr-3"></span>
-              Support
-            </h3>
-            <ul className="space-y-3">
-              {[
-                'Help Center',
-                'Contact Us',
-                'Shipping Info',
-                'Returns & Exchanges',
-                'Size Guide',
-                'FAQs',
-                'Privacy Policy'
-              ].map((item) => (
-                <li key={item}>
-                  <a 
-                    href="#" 
-                    className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group"
-                  >
-                    <i className="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div className="lg:col-span-1">
-            <h3 className="text-lg font-bold mb-6 flex items-center">
-              <span className="w-2 h-6 bg-gradient-to-b from-green-500 to-emerald-500 rounded-full mr-3"></span>
-              Newsletter
-            </h3>
-            <p className="text-gray-400 mb-6">
-              Subscribe to get special offers, free giveaways, and exclusive deals.
-            </p>
-            
-            <form onSubmit={handleSubscribe} className="mb-6">
-              <div className="relative">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="w-full bg-gray-800 border border-gray-700 rounded-xl py-3 px-4 pr-12 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-lg px-4 py-2 transition-all duration-300"
-                >
-                  <i className="fas fa-paper-plane"></i>
-                </button>
-              </div>
-            </form>
-
-            {subscribed && (
-              <div className="mb-6 p-3 bg-green-500/20 border border-green-500/30 rounded-xl">
-                <div className="flex items-center text-green-400">
-                  <i className="fas fa-check-circle mr-2"></i>
-                  <span>Successfully subscribed! Check your email.</span>
-                </div>
-              </div>
-            )}
-
-            {/* Payment Methods */}
-            <div className="mt-8">
-              <h4 className="text-sm font-bold mb-4 text-gray-300">We Accept</h4>
-              <div className="flex flex-wrap gap-3">
-                {['cc-visa', 'cc-mastercard', 'cc-amex', 'cc-paypal', 'cc-apple-pay'].map((method) => (
-                  <div 
-                    key={method}
-                    className="w-12 h-8 bg-gray-800 rounded-lg flex items-center justify-center"
-                  >
-                    <i className={`fab fa-${method} text-gray-400 text-lg`}></i>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </div>
 
-        {/* Trust Badges */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { icon: 'fa-truck', title: 'Free Shipping', desc: 'On orders $50+' },
-              { icon: 'fa-shield-alt', title: 'Secure Payment', desc: '100% protected' },
-              { icon: 'fa-undo', title: 'Easy Returns', desc: '30 day policy' },
-              { icon: 'fa-headset', title: '24/7 Support', desc: 'Dedicated help' }
-            ].map((badge, index) => (
-              <div key={index} className="flex items-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl flex items-center justify-center mr-4">
-                  <i className={`fas ${badge.icon} text-indigo-400 text-lg`}></i>
+        {/* Divider */}
+        <div className="my-12 border-t border-gray-200"></div>
+
+        {/* Trust & Payment Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Trust Badges */}
+          <div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {trustBadges.map((badge, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-2xl mb-2">{badge.icon}</div>
+                  <div className="text-sm font-medium text-gray-900">{badge.title}</div>
+                  <div className="text-xs text-gray-500">{badge.desc}</div>
                 </div>
-                <div>
-                  <div className="font-bold text-sm">{badge.title}</div>
-                  <div className="text-gray-400 text-xs">{badge.desc}</div>
+              ))}
+            </div>
+          </div>
+
+          {/* Payment Methods */}
+          <div>
+            <div className="flex items-center justify-end space-x-4">
+              <span className="text-sm text-gray-500 mr-4">Payment Methods</span>
+              {paymentMethods.map((method) => (
+                <div
+                  key={method.name}
+                  className="text-gray-400 hover:text-gray-600 transition-colors duration-300"
+                  title={method.name}
+                >
+                  <i className={`fab fa-${method.icon} text-xl`}></i>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Bottom Footer */}
-      <div className="bg-black/50 border-t border-gray-800">
-        <div className="container mx-auto px-4 py-6">
+      <div className="border-t border-gray-200">
+        <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-400 text-sm mb-4 md:mb-0">
-              © {new Date().getFullYear()} FashionHub. All rights reserved.
+            <div className="mb-4 md:mb-0">
+              <div className="text-sm text-gray-600">
+                © {new Date().getFullYear()} AESTHETE COLLECTIVE. All rights reserved.
+              </div>
             </div>
             
             <div className="flex items-center space-x-6">
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-                Terms of Service
+              <a href="#" className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-300">
+                Terms
               </a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-                Privacy Policy
+              <a href="#" className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-300">
+                Privacy
               </a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+              <a href="#" className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-300">
                 Cookies
               </a>
-              <div className="flex items-center text-gray-400 text-sm">
-                <i className="fas fa-globe mr-2"></i>
-                <select className="bg-transparent border-none focus:outline-none">
+              <div className="flex items-center space-x-2">
+                <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                </svg>
+                <select className="bg-transparent border-none text-sm text-gray-600 focus:outline-none cursor-pointer">
                   <option>English</option>
-                  <option>Español</option>
                   <option>Français</option>
+                  <option>Español</option>
                 </select>
               </div>
             </div>
@@ -227,20 +232,24 @@ const Footer = () => {
       {/* Back to Top Button */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-6 right-6 w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl hover:scale-110 transition-all duration-300 z-50"
+        className="fixed bottom-8 right-8 w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors duration-300 z-50 shadow-lg"
         aria-label="Back to top"
       >
-        <i className="fas fa-chevron-up"></i>
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
       </button>
 
-      {/* Live Chat Button */}
+      {/* Chat Button */}
       <button
-        className="fixed bottom-24 right-6 w-14 h-14 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl hover:scale-110 transition-all duration-300 z-50 group"
-        aria-label="Live chat"
+        className="fixed bottom-24 right-8 w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors duration-300 z-50 shadow-lg group"
+        aria-label="Contact support"
       >
-        <i className="fas fa-comment text-xl"></i>
-        <span className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full text-xs flex items-center justify-center animate-pulse">
-          <i className="fas fa-bolt"></i>
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+        <span className="absolute -top-2 -right-2 w-5 h-5 bg-gray-900 text-xs rounded-full flex items-center justify-center border-2 border-white">
+          <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-ping"></span>
         </span>
       </button>
     </footer>

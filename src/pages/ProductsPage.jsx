@@ -1,423 +1,170 @@
-// ProductsPage.jsx
+// ProductsPage.jsx - Modern Redesign
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-// Sample products data matching the navbar categories
+// Sample products data
 const allProducts = [
   // Men's Products
   {
     id: 1,
-    name: "Premium Cotton T-Shirt",
+    name: "Organic Cotton Tee",
     category: "Men",
-    subcategory: "Casual T-Shirts",
+    subcategory: "Essentials",
     price: 29.99,
     originalPrice: 39.99,
     rating: 4.5,
     reviews: 128,
     image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=2080&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=2080&auto=format&fit=crop&brightness=0.8",
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=2080&auto=format&fit=crop&brightness=1.2",
-    ],
     tags: ["Bestseller", "Organic"],
     colors: [
-      { name: "Navy Blue", value: "bg-blue-900", hex: "#1e3a8a" },
-      { name: "Black", value: "bg-black", hex: "#000000" },
+      { name: "Charcoal", value: "bg-gray-900", hex: "#111827" },
+      { name: "Navy", value: "bg-blue-900", hex: "#1e3a8a" },
       { name: "White", value: "bg-white border", hex: "#ffffff" }
-    ],
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    inStock: true,
-    description: "Experience ultimate comfort with our Premium Cotton T-Shirt. Made from 100% organic cotton, this shirt offers exceptional breathability and softness.",
-    features: [
-      "100% Organic Cotton",
-      "Breathable & Soft",
-      "Machine Washable",
-      "Tag-free Design"
-    ],
-  },
-  {
-    id: 2,
-    name: "Classic Denim Jacket",
-    category: "Men",
-    subcategory: "Jackets & Hoodies",
-    price: 79.99,
-    originalPrice: 99.99,
-    rating: 4.7,
-    reviews: 189,
-    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=2070&auto=format&fit=crop&brightness=0.9",
-      "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=2070&auto=format&fit=crop&brightness=1.1",
-    ],
-    tags: ["Limited", "Premium"],
-    colors: [
-      { name: "Dark Blue", value: "bg-blue-900", hex: "#1e3a8a" },
-      { name: "Black", value: "bg-gray-800", hex: "#1f2937" },
-      { name: "Indigo", value: "bg-indigo-700", hex: "#4338ca" }
-    ],
-    sizes: ["M", "L", "XL"],
-    inStock: true,
-    description: "Timeless denim jacket with a modern fit. Perfect for layering and adding style to any outfit.",
-    features: [
-      "100% Cotton Denim",
-      "Metal Buttons",
-      "Multiple Pockets",
-      "Classic Fit"
-    ],
-  },
-  {
-    id: 3,
-    name: "Formal Business Shirt",
-    category: "Men",
-    subcategory: "Formal Shirts",
-    price: 49.99,
-    originalPrice: 69.99,
-    rating: 4.4,
-    reviews: 92,
-    image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&auto=format&fit=crop&brightness=0.9",
-      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&auto=format&fit=crop&brightness=1.1",
-    ],
-    tags: ["New", "Professional"],
-    colors: [
-      { name: "White", value: "bg-white border", hex: "#ffffff" },
-      { name: "Blue", value: "bg-blue-200", hex: "#93c5fd" },
-      { name: "Gray", value: "bg-gray-300", hex: "#d1d5db" }
     ],
     sizes: ["S", "M", "L", "XL"],
     inStock: true,
-    description: "Professional business shirt for formal occasions.",
-    features: [
-      "Non-Iron Fabric",
-      "Classic Fit",
-      "Button-Down Collar",
-      "Easy Care"
-    ],
+    description: "Premium organic cotton tee with tailored fit and sustainable production.",
+    features: ["100% Organic Cotton", "Tailored Fit", "Sustainable Production"],
+    brand: "Essentials"
   },
   {
-    id: 4,
-    name: "Slim Fit Jeans",
+    id: 2,
+    name: "Raw Denim Jacket",
     category: "Men",
-    subcategory: "Jeans & Pants",
-    price: 59.99,
-    originalPrice: 79.99,
-    rating: 4.6,
-    reviews: 204,
-    image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&auto=format&fit=crop&brightness=0.9",
-      "https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&auto=format&fit=crop&brightness=1.1",
-    ],
-    tags: ["Popular", "Sale"],
+    subcategory: "Utility",
+    price: 149.99,
+    originalPrice: 199.99,
+    rating: 4.7,
+    reviews: 189,
+    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&auto=format&fit=crop",
+    tags: ["Limited", "Raw"],
     colors: [
-      { name: "Dark Blue", value: "bg-blue-900", hex: "#1e3a8a" },
-      { name: "Black", value: "bg-black", hex: "#000000" },
-      { name: "Light Blue", value: "bg-blue-300", hex: "#93c5fd" }
+      { name: "Indigo", value: "bg-indigo-900", hex: "#312e81" },
+      { name: "Black", value: "bg-gray-900", hex: "#111827" },
     ],
-    sizes: ["28", "30", "32", "34", "36"],
+    sizes: ["M", "L", "XL"],
     inStock: true,
-    description: "Comfortable slim fit jeans for everyday wear.",
-    features: [
-      "Stretch Denim",
-      "Slim Fit",
-      "Five Pockets",
-      "Machine Washable"
+    description: "Raw selvedge denim jacket with classic hardware details.",
+    features: ["Selvedge Denim", "Classic Hardware", "Durable Construction"],
+    brand: "Utility"
+  },
+  {
+    id: 3,
+    name: "Wool Blend Sweater",
+    category: "Men",
+    subcategory: "Knitwear",
+    price: 89.99,
+    originalPrice: 119.99,
+    rating: 4.4,
+    reviews: 92,
+    image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&auto=format&fit=crop",
+    tags: ["Winter", "Premium"],
+    colors: [
+      { name: "Charcoal", value: "bg-gray-800", hex: "#1f2937" },
+      { name: "Navy", value: "bg-blue-900", hex: "#1e3a8a" },
     ],
+    sizes: ["S", "M", "L", "XL"],
+    inStock: true,
+    description: "Fine gauge wool blend sweater for transitional seasons.",
+    features: ["Wool Blend", "Fine Gauge", "Timeless Design"],
+    brand: "Knitwear"
   },
 
   // Women's Products
   {
-    id: 5,
-    name: "Designer Summer Dress",
+    id: 4,
+    name: "Silk Blend Dress",
     category: "Women",
-    subcategory: "Dresses",
-    price: 89.99,
-    originalPrice: 129.99,
+    subcategory: "Contemporary",
+    price: 189.99,
+    originalPrice: 259.99,
     rating: 4.8,
     reviews: 256,
     image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=2080&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=2080&auto=format&fit=crop&brightness=0.9",
-      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=2080&auto=format&fit=crop&brightness=1.1",
-    ],
-    tags: ["New", "-30%"],
+    tags: ["New", "Luxury"],
     colors: [
-      { name: "Rose Pink", value: "bg-pink-500", hex: "#ec4899" },
-      { name: "Sun Yellow", value: "bg-yellow-400", hex: "#fbbf24" },
-      { name: "Mint Green", value: "bg-green-300", hex: "#86efac" }
+      { name: "Blush", value: "bg-pink-100", hex: "#fce7f3" },
+      { name: "Ivory", value: "bg-yellow-50", hex: "#fefce8" },
     ],
-    sizes: ["XS", "S", "M", "L"],
+    sizes: ["XS", "S", "M"],
     inStock: true,
-    description: "Elegant summer dress with beautiful floral patterns.",
-    features: [
-      "Lightweight Fabric",
-      "Floral Pattern",
-      "Adjustable Straps",
-      "Machine Washable"
-    ],
+    description: "Elegant silk blend dress with modern drape and refined silhouette.",
+    features: ["Silk Blend", "Modern Drape", "Refined Silhouette"],
+    brand: "Contemporary"
   },
   {
-    id: 6,
-    name: "Activewear Set",
+    id: 5,
+    name: "Tailored Trousers",
     category: "Women",
-    subcategory: "Activewear",
-    price: 64.99,
-    originalPrice: 89.99,
+    subcategory: "Tailoring",
+    price: 129.99,
+    originalPrice: 169.99,
     rating: 4.6,
-    reviews: 312,
-    image: "https://images.unsplash.com/photo-1591369822094-ffb5eaa5b566?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1591369822094-ffb5eaa5b566?q=80&w=2080&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1591369822094-ffb5eaa5b566?q=80&w=2080&auto=format&fit=crop&brightness=0.9",
-      "https://images.unsplash.com/photo-1591369822094-ffb5eaa5b566?q=80&w=2080&auto=format&fit=crop&brightness=1.1",
-    ],
-    tags: ["Popular", "Sale"],
-    colors: [
-      { name: "Purple", value: "bg-purple-600", hex: "#7c3aed" },
-      { name: "Black", value: "bg-black", hex: "#000000" },
-      { name: "Gray", value: "bg-gray-200", hex: "#e5e7eb" }
-    ],
-    sizes: ["XS", "S", "M", "L", "XL"],
-    inStock: true,
-    description: "Complete activewear set for workout sessions.",
-    features: [
-      "Moisture Wicking",
-      "4-Way Stretch",
-      "Breathable",
-      "Quick Dry"
-    ],
-  },
-  {
-    id: 7,
-    name: "Silk Blouse",
-    category: "Women",
-    subcategory: "Tops & Blouses",
-    price: 54.99,
-    originalPrice: 79.99,
-    rating: 4.7,
     reviews: 143,
-    image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&auto=format&fit=crop&brightness=0.9",
-      "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&auto=format&fit=crop&brightness=1.1",
-    ],
-    tags: ["Luxury", "New"],
+    image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&auto=format&fit=crop",
+    tags: ["Premium", "Tailored"],
     colors: [
-      { name: "White", value: "bg-white border", hex: "#ffffff" },
       { name: "Black", value: "bg-black", hex: "#000000" },
-      { name: "Red", value: "bg-red-500", hex: "#ef4444" }
+      { name: "Navy", value: "bg-blue-900", hex: "#1e3a8a" },
+      { name: "Gray", value: "bg-gray-600", hex: "#4b5563" }
     ],
     sizes: ["XS", "S", "M", "L"],
     inStock: true,
-    description: "Elegant silk blouse for formal occasions.",
-    features: [
-      "100% Silk",
-      "French Cuffs",
-      "Classic Design",
-      "Dry Clean Only"
-    ],
-  },
-  {
-    id: 8,
-    name: "Midi Skirt",
-    category: "Women",
-    subcategory: "Skirts",
-    price: 44.99,
-    originalPrice: 59.99,
-    rating: 4.5,
-    reviews: 98,
-    image: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=800&auto=format&fit=crop&brightness=0.9",
-      "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=800&auto=format&fit=crop&brightness=1.1",
-    ],
-    tags: ["Trending", "Summer"],
-    colors: [
-      { name: "Navy", value: "bg-blue-900", hex: "#1e3a8a" },
-      { name: "Beige", value: "bg-yellow-100", hex: "#fef3c7" },
-      { name: "Green", value: "bg-green-400", hex: "#4ade80" }
-    ],
-    sizes: ["S", "M", "L"],
-    inStock: true,
-    description: "Elegant midi skirt for any occasion.",
-    features: [
-      "A-line Silhouette",
-      "Side Zipper",
-      "Wrinkle Resistant",
-      "Machine Washable"
-    ],
+    description: "Perfectly tailored trousers with clean lines and premium fabric.",
+    features: ["Premium Fabric", "Clean Lines", "Perfect Fit"],
+    brand: "Tailoring"
   },
 
   // Kids Products
   {
-    id: 9,
-    name: "Kids Casual Sneakers",
+    id: 6,
+    name: "Organic Onesie Set",
     category: "Kids",
-    subcategory: "Footwear",
-    price: 44.99,
-    originalPrice: 59.99,
-    rating: 4.9,
-    reviews: 156,
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2080&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2080&auto=format&fit=crop&brightness=0.9",
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2080&auto=format&fit=crop&brightness=1.1",
-    ],
-    tags: ["Bestseller", "-25%"],
-    colors: [
-      { name: "Red", value: "bg-red-500", hex: "#ef4444" },
-      { name: "Blue", value: "bg-blue-400", hex: "#60a5fa" },
-      { name: "Green", value: "bg-green-500", hex: "#22c55e" }
-    ],
-    sizes: ["26", "28", "30", "32"],
-    inStock: true,
-    description: "Comfortable sneakers for kids with excellent grip.",
-    features: [
-      "Rubber Sole",
-      "Breathable Mesh",
-      "Easy Velcro Closure",
-      "Lightweight"
-    ],
-  },
-  {
-    id: 10,
-    name: "Cartoon T-Shirt",
-    category: "Kids",
-    subcategory: "Boys Clothing",
-    price: 19.99,
-    originalPrice: 29.99,
-    rating: 4.7,
-    reviews: 87,
-    image: "https://images.unsplash.com/photo-1519241047957-be31d7379a5d?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1519241047957-be31d7379a5d?w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1519241047957-be31d7379a5d?w=800&auto=format&fit=crop&brightness=0.9",
-      "https://images.unsplash.com/photo-1519241047957-be31d7379a5d?w=800&auto=format&fit=crop&brightness=1.1",
-    ],
-    tags: ["Cartoon", "Fun"],
-    colors: [
-      { name: "Blue", value: "bg-blue-500", hex: "#3b82f6" },
-      { name: "Red", value: "bg-red-500", hex: "#ef4444" },
-      { name: "Green", value: "bg-green-500", hex: "#22c55e" }
-    ],
-    sizes: ["4-5", "6-7", "8-9", "10-11"],
-    inStock: true,
-    description: "Fun cartoon t-shirt for boys.",
-    features: [
-      "100% Cotton",
-      "Cartoon Print",
-      "Machine Washable",
-      "Kid Friendly"
-    ],
-  },
-  {
-    id: 11,
-    name: "Princess Dress",
-    category: "Kids",
-    subcategory: "Girls Clothing",
-    price: 39.99,
-    originalPrice: 49.99,
-    rating: 4.8,
-    reviews: 112,
-    image: "https://images.unsplash.com/photo-1519686997393-7bdb5d6c9c3f?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1519686997393-7bdb5d6c9c3f?w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1519686997393-7bdb5d6c9c3f?w=800&auto=format&fit=crop&brightness=0.9",
-      "https://images.unsplash.com/photo-1519686997393-7bdb5d6c9c3f?w=800&auto=format&fit=crop&brightness=1.1",
-    ],
-    tags: ["Fairy", "Magic"],
-    colors: [
-      { name: "Pink", value: "bg-pink-300", hex: "#f9a8d4" },
-      { name: "Purple", value: "bg-purple-300", hex: "#d8b4fe" },
-      { name: "Blue", value: "bg-blue-300", hex: "#93c5fd" }
-    ],
-    sizes: ["4-5", "6-7", "8-9", "10-11"],
-    inStock: true,
-    description: "Beautiful princess dress for girls.",
-    features: [
-      "Tutu Style",
-      "Sparkle Details",
-      "Comfortable Fit",
-      "Machine Washable"
-    ],
-  },
-  {
-    id: 12,
-    name: "Baby Onesie Set",
-    category: "Kids",
-    subcategory: "Baby Wear",
+    subcategory: "Baby",
     price: 34.99,
-    originalPrice: 44.99,
+    originalPrice: 49.99,
     rating: 4.6,
     reviews: 67,
     image: "https://images.unsplash.com/photo-1589820308425-78d88cb13c4c?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1589820308425-78d88cb13c4c?w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1589820308425-78d88cb13c4c?w=800&auto=format&fit=crop&brightness=0.9",
-      "https://images.unsplash.com/photo-1589820308425-78d88cb13c4c?w=800&auto=format&fit=crop&brightness=1.1",
-    ],
-    tags: ["Soft", "Comfort"],
+    tags: ["Organic", "Soft"],
     colors: [
       { name: "White", value: "bg-white border", hex: "#ffffff" },
-      { name: "Yellow", value: "bg-yellow-200", hex: "#fde68a" },
-      { name: "Blue", value: "bg-blue-200", hex: "#bfdbfe" }
+      { name: "Mint", value: "bg-green-100", hex: "#dcfce7" },
+      { name: "Sky", value: "bg-blue-100", hex: "#dbeafe" }
     ],
-    sizes: ["0-3M", "3-6M", "6-9M", "9-12M"],
+    sizes: ["0-3M", "3-6M", "6-9M"],
     inStock: true,
-    description: "Soft baby onesie set for newborns.",
-    features: [
-      "100% Organic Cotton",
-      "Snap Buttons",
-      "Tag-free",
-      "Machine Washable"
-    ],
+    description: "Soft organic cotton onesie set for newborns and infants.",
+    features: ["100% Organic Cotton", "Snap Buttons", "Tag-free"],
+    brand: "Baby"
   },
 
   // Accessories
   {
-    id: 13,
-    name: "Leather Crossbody Bag",
+    id: 7,
+    name: "Leather Tote",
     category: "Accessories",
     subcategory: "Bags",
-    price: 129.99,
-    originalPrice: 179.99,
+    price: 299.99,
+    originalPrice: 399.99,
     rating: 4.8,
     reviews: 89,
     image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=2070&auto=format&fit=crop&brightness=0.9",
-      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=2070&auto=format&fit=crop&brightness=1.1",
-    ],
-    tags: ["Luxury", "New"],
+    tags: ["Luxury", "Crafted"],
     colors: [
-      { name: "Brown", value: "bg-brown-800", hex: "#78350f" },
+      { name: "Cognac", value: "bg-amber-800", hex: "#92400e" },
       { name: "Black", value: "bg-black", hex: "#000000" },
-      { name: "Tan", value: "bg-tan", hex: "#d2b48c" }
     ],
     sizes: ["One Size"],
     inStock: true,
-    description: "Genuine leather crossbody bag with multiple compartments.",
-    features: [
-      "Genuine Leather",
-      "Adjustable Strap",
-      "Multiple Pockets",
-      "Magnetic Closure"
-    ],
+    description: "Full-grain leather tote with handcrafted details and functional organization.",
+    features: ["Full-grain Leather", "Handcrafted", "Multiple Compartments"],
+    brand: "Accessories"
   },
   {
-    id: 14,
-    name: "Classic Watch",
+    id: 8,
+    name: "Minimalist Watch",
     category: "Accessories",
     subcategory: "Watches",
     price: 199.99,
@@ -425,113 +172,28 @@ const allProducts = [
     rating: 4.9,
     reviews: 156,
     image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&auto=format&fit=crop&brightness=0.9",
-      "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&auto=format&fit=crop&brightness=1.1",
-    ],
-    tags: ["Premium", "Classic"],
+    tags: ["Minimal", "Premium"],
     colors: [
       { name: "Silver", value: "bg-gray-300", hex: "#d1d5db" },
-      { name: "Gold", value: "bg-yellow-500", hex: "#eab308" },
-      { name: "Rose Gold", value: "bg-pink-300", hex: "#f9a8d4" }
+      { name: "Black", value: "bg-gray-900", hex: "#111827" },
     ],
     sizes: ["One Size"],
     inStock: true,
-    description: "Classic wristwatch with leather strap.",
-    features: [
-      "Stainless Steel Case",
-      "Genuine Leather Strap",
-      "Water Resistant",
-      "Quartz Movement"
-    ],
-  },
-  {
-    id: 15,
-    name: "Aviator Sunglasses",
-    category: "Accessories",
-    subcategory: "Sunglasses",
-    price: 89.99,
-    originalPrice: 119.99,
-    rating: 4.7,
-    reviews: 92,
-    image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&auto=format&fit=crop&brightness=0.9",
-      "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&auto=format&fit=crop&brightness=1.1",
-    ],
-    tags: ["Trending", "UV Protection"],
-    colors: [
-      { name: "Gold", value: "bg-yellow-500", hex: "#eab308" },
-      { name: "Silver", value: "bg-gray-300", hex: "#d1d5db" },
-      { name: "Black", value: "bg-black", hex: "#000000" }
-    ],
-    sizes: ["One Size"],
-    inStock: true,
-    description: "Classic aviator sunglasses with UV protection.",
-    features: [
-      "UV400 Protection",
-      "Polarized Lenses",
-      "Metal Frame",
-      "Includes Case"
-    ],
-  },
-  {
-    id: 16,
-    name: "Silk Scarf Set",
-    category: "Accessories",
-    subcategory: "Jewelry",
-    price: 34.99,
-    originalPrice: 49.99,
-    rating: 4.7,
-    reviews: 67,
-    image: "https://images.unsplash.com/photo-1585059711334-4e8bcc8a4f65?w=800&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1585059711334-4e8bcc8a4f65?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1585059711334-4e8bcc8a4f65?q=80&w=2070&auto=format&fit=crop&brightness=0.9",
-      "https://images.unsplash.com/photo-1585059711334-4e8bcc8a4f65?q=80&w=2070&auto=format&fit=crop&brightness=1.1",
-    ],
-    tags: ["Gift", "Elegant"],
-    colors: [
-      { name: "Blush Pink", value: "bg-pink-200", hex: "#fbcfe8" },
-      { name: "Sky Blue", value: "bg-blue-100", hex: "#dbeafe" },
-      { name: "Cream", value: "bg-yellow-100", hex: "#fef3c7" }
-    ],
-    sizes: ["One Size"],
-    inStock: true,
-    description: "Set of three silk scarves in different patterns.",
-    features: [
-      "100% Silk",
-      "Multiple Patterns",
-      "Hand Rolled Edges",
-      "Dry Clean Only"
-    ],
+    description: "Minimalist watch with clean design and premium materials.",
+    features: ["Swiss Movement", "Leather Strap", "Minimal Design"],
+    brand: "Accessories"
   },
 ];
 
-// Subcategories mapping
 const subcategoryMapping = {
-  'casual-tshirts': 'Casual T-Shirts',
-  'formal-shirts': 'Formal Shirts',
-  'jeans-pants': 'Jeans & Pants',
-  'jackets-hoodies': 'Jackets & Hoodies',
-  'activewear': 'Activewear',
-  'footwear': 'Footwear',
-  'dresses': 'Dresses',
-  'tops-blouses': 'Tops & Blouses',
-  'skirts': 'Skirts',
-  'handbags': 'Handbags',
-  'jewelry': 'Jewelry',
-  'boys-clothing': 'Boys Clothing',
-  'girls-clothing': 'Girls Clothing',
-  'baby-wear': 'Baby Wear',
-  'school-uniforms': 'School Uniforms',
-  'watches': 'Watches',
-  'sunglasses': 'Sunglasses',
-  'belts': 'Belts',
-  'hats-caps': 'Hats & Caps',
+  'essentials': 'Essentials',
+  'utility': 'Utility',
+  'knitwear': 'Knitwear',
+  'contemporary': 'Contemporary',
+  'tailoring': 'Tailoring',
+  'baby': 'Baby',
   'bags': 'Bags',
+  'watches': 'Watches',
 };
 
 const ProductsPage = () => {
@@ -547,23 +209,21 @@ const ProductsPage = () => {
   const [priceRange, setPriceRange] = useState([0, 500]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [minRating, setMinRating] = useState(0);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [viewMode, setViewMode] = useState('grid');
   const productsPerPage = 12;
 
-  // Reset page when filters change
   useEffect(() => {
     setCurrentPage(1);
   }, [category, subcategory, activeFilter, sortBy, searchQuery, priceRange, selectedBrands, minRating]);
 
-  // Filter products based on URL parameters and filters
   const filteredProducts = allProducts.filter(product => {
-    // If category is specified in URL
     if (category && category !== 'all') {
       if (product.category.toLowerCase() !== category.toLowerCase()) {
         return false;
       }
     }
     
-    // If subcategory is specified in URL
     if (subcategory && subcategoryMapping[subcategory]) {
       const mappedSubcategory = subcategoryMapping[subcategory];
       if (product.subcategory !== mappedSubcategory) {
@@ -571,7 +231,6 @@ const ProductsPage = () => {
       }
     }
     
-    // Search query filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       const matchesName = product.name.toLowerCase().includes(query);
@@ -584,17 +243,14 @@ const ProductsPage = () => {
       }
     }
     
-    // Price range filter
     if (product.price < priceRange[0] || product.price > priceRange[1]) {
       return false;
     }
     
-    // Rating filter
     if (product.rating < minRating) {
       return false;
     }
     
-    // Active filters
     if (activeFilter === 'sale') {
       return product.originalPrice > product.price;
     }
@@ -605,16 +261,15 @@ const ProductsPage = () => {
       return product.tags.some(tag => tag === 'Bestseller');
     }
     
-    // Brands filter (if implemented)
-    if (selectedBrands.length > 0) {
-      // This is a simplified brand filter - you would need to add brand property to products
-      return true;
+    if (selectedBrands.length > 0 && product.brand) {
+      if (!selectedBrands.includes(product.brand)) {
+        return false;
+      }
     }
     
     return true;
   });
 
-  // Sort products
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch(sortBy) {
       case 'price-low': return a.price - b.price;
@@ -626,26 +281,24 @@ const ProductsPage = () => {
     }
   });
 
-  // Pagination
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = sortedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
 
-  // Get category title
   const getCategoryTitle = () => {
     if (searchQuery) {
-      return `Search Results for "${searchQuery}"`;
+      return `"${searchQuery}"`;
     }
     if (subcategory && subcategoryMapping[subcategory]) {
       return subcategoryMapping[subcategory];
     }
     if (category && category !== 'all') {
       const formattedCategory = category.charAt(0).toUpperCase() + category.slice(1);
-      return `${formattedCategory}'s Collection`;
+      return formattedCategory;
     }
     if (activeFilter === 'sale') {
-      return 'Sale Products';
+      return 'Sale';
     }
     if (activeFilter === 'new') {
       return 'New Arrivals';
@@ -653,37 +306,36 @@ const ProductsPage = () => {
     if (activeFilter === 'bestseller') {
       return 'Best Sellers';
     }
-    return 'All Products';
+    return 'Collections';
   };
 
-  // Get category description
   const getCategoryDescription = () => {
     if (searchQuery) {
-      return `Found ${sortedProducts.length} products matching "${searchQuery}"`;
+      return `${sortedProducts.length} results`;
     }
     if (subcategory && subcategoryMapping[subcategory]) {
-      return `Browse our collection of ${subcategoryMapping[subcategory].toLowerCase()}. Find the perfect items for your style.`;
+      return `Curated selection of ${subcategoryMapping[subcategory].toLowerCase()}`;
     }
     if (category && category !== 'all') {
-      return `Explore our ${category.toLowerCase()} collection featuring the latest trends and timeless classics.`;
+      return `Explore our ${category.toLowerCase()} collection`;
     }
     if (activeFilter === 'sale') {
-      return 'Discover amazing deals and discounts on our premium products.';
+      return 'Special offers and promotions';
     }
     if (activeFilter === 'new') {
-      return 'Check out our latest arrivals and stay ahead of fashion trends.';
+      return 'Latest additions to our collection';
     }
     if (activeFilter === 'bestseller') {
-      return 'Our most popular products loved by customers worldwide.';
+      return 'Customer favorites';
     }
-    return 'Discover our complete collection of premium products across all categories.';
+    return 'Complete collection of premium products';
   };
 
   const filters = [
-    { key: 'all', label: 'All Products', icon: 'fas fa-th' },
-    { key: 'sale', label: 'On Sale', icon: 'fas fa-percentage' },
-    { key: 'new', label: 'New Arrivals', icon: 'fas fa-star' },
-    { key: 'bestseller', label: 'Best Sellers', icon: 'fas fa-crown' },
+    { key: 'all', label: 'All' },
+    { key: 'new', label: 'New' },
+    { key: 'sale', label: 'Sale' },
+    { key: 'bestseller', label: 'Best Sellers' },
   ];
 
   const categories = [
@@ -696,12 +348,14 @@ const ProductsPage = () => {
 
   const renderStars = (rating) => {
     return [...Array(5)].map((_, i) => (
-      <i
+      <svg
         key={i}
-        className={`fas fa-star text-sm ${
-          i < Math.floor(rating) ? 'text-yellow-400' : 'text-gray-300'
-        }`}
-      />
+        className={`w-3 h-3 ${i < Math.floor(rating) ? 'text-gray-900' : 'text-gray-300'}`}
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+      </svg>
     ));
   };
 
@@ -717,25 +371,23 @@ const ProductsPage = () => {
       image: product.image
     };
     
-    // Add to cart logic here - in real app, you would use context or state management
     console.log("Added to cart:", cartItem);
     
-    // Save to localStorage for demo
     const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
     currentCart.push(cartItem);
     localStorage.setItem('cart', JSON.stringify(currentCart));
     
-    // Show success message
     const event = new CustomEvent('cartUpdate', { detail: cartItem });
     window.dispatchEvent(event);
     
-    // Show temporary notification (you can replace with a toast component)
     const notification = document.createElement('div');
-    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-slideIn';
+    notification.className = 'fixed top-4 right-4 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fadeIn';
     notification.innerHTML = `
       <div class="flex items-center">
-        <i class="fas fa-check-circle mr-2"></i>
-        <span>${product.name} added to cart!</span>
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        </svg>
+        <span>${product.name} added to cart</span>
       </div>
     `;
     document.body.appendChild(notification);
@@ -748,49 +400,93 @@ const ProductsPage = () => {
   const handleQuickView = (product, e) => {
     e.stopPropagation();
     e.preventDefault();
-    // You can implement a quick view modal here
     navigate(`/product/${product.id}`);
   };
 
+  const uniqueBrands = [...new Set(allProducts.map(product => product.brand).filter(Boolean))];
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {/* Category Header */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{getCategoryTitle()}</h1>
-            <p className="text-lg text-white/90 mb-6">{getCategoryDescription()}</p>
-            <div className="text-sm text-white/80">
-              <span className="font-semibold">{sortedProducts.length}</span> products found
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <div className="border-b border-gray-200">
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl">
+            <div className="flex items-center space-x-2 mb-2">
+              <Link to="/" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+                Home
+              </Link>
+              <span className="text-gray-300">/</span>
+              <Link to="/products" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+                Collections
+              </Link>
               {category && category !== 'all' && (
-                <span> in {category.charAt(0).toUpperCase() + category.slice(1)}</span>
+                <>
+                  <span className="text-gray-300">/</span>
+                  <Link 
+                    to={`/products/category/${category}`}
+                    className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+                  >
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </Link>
+                </>
               )}
               {subcategory && (
-                <span> in {subcategoryMapping[subcategory]}</span>
+                <>
+                  <span className="text-gray-300">/</span>
+                  <span className="text-sm text-gray-900">
+                    {subcategoryMapping[subcategory]}
+                  </span>
+                </>
               )}
             </div>
+            
+            <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-3">
+              {getCategoryTitle()}
+            </h1>
+            <p className="text-gray-600">
+              {getCategoryDescription()} • <span className="font-medium">{sortedProducts.length}</span> items
+            </p>
           </div>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
+          {/* Mobile Filter Toggle */}
+          <div className="lg:hidden mb-4">
+            <button
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              className="w-full py-3 border border-gray-300 rounded-lg flex items-center justify-center space-x-2 hover:bg-gray-50 transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              </svg>
+              <span>Filters</span>
+            </button>
+          </div>
+
           {/* Sidebar Filters */}
-          <div className="lg:w-1/4">
-            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-24">
-              {/* Category Filter */}
+          <div className={`
+            lg:w-1/4 lg:block ${isFilterOpen ? 'block' : 'hidden'}
+            animate-fadeIn
+          `}>
+            <div className="bg-white border border-gray-200 rounded-lg p-6 sticky top-24">
+              {/* Categories */}
               <div className="mb-8">
-                <h3 className="font-bold text-lg text-gray-900 mb-4">Categories</h3>
-                <div className="space-y-2">
+                <div className="flex items-center space-x-2 mb-4">
+                  <div className="w-4 h-px bg-gray-900"></div>
+                  <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wider">Categories</h3>
+                </div>
+                <div className="space-y-1">
                   {categories.map((cat) => (
                     <Link
                       key={cat.name}
                       to={cat.path}
-                      className={`block px-4 py-3 rounded-lg transition-all duration-200 ${
+                      className={`block px-3 py-2 rounded transition-all duration-200 ${
                         (!category && cat.name === 'All') || 
                         (category && cat.name.toLowerCase() === category)
-                          ? 'bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-600 font-semibold'
-                          : 'text-gray-700 hover:bg-gray-50'
+                          ? 'bg-gray-50 text-gray-900 font-medium'
+                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                       }`}
                     >
                       <div className="flex items-center justify-between">
@@ -806,60 +502,73 @@ const ProductsPage = () => {
 
               {/* Price Range */}
               <div className="mb-8">
-                <h3 className="font-bold text-lg text-gray-900 mb-4">Price Range</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-600">${priceRange[0]}</span>
-                    <span className="text-gray-600">${priceRange[1]}</span>
+                <div className="flex items-center space-x-2 mb-4">
+                  <div className="w-4 h-px bg-gray-900"></div>
+                  <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wider">Price Range</h3>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-gray-900">${priceRange[0]}</span>
+                    <span className="text-gray-900">${priceRange[1]}</span>
                   </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="500"
-                    value={priceRange[0]}
-                    onChange={(e) => setPriceRange([parseInt(e.target.value), priceRange[1]])}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                  />
-                  <input
-                    type="range"
-                    min="0"
-                    max="500"
-                    value={priceRange[1]}
-                    onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                  />
-                  <div className="flex justify-between text-sm text-gray-500">
-                    <span>$0</span>
-                    <span>$500</span>
+                  <div className="relative h-1 bg-gray-200 rounded-full">
+                    <div 
+                      className="absolute h-full bg-gray-900 rounded-full"
+                      style={{ 
+                        left: `${(priceRange[0] / 500) * 100}%`,
+                        width: `${((priceRange[1] - priceRange[0]) / 500) * 100}%`
+                      }}
+                    ></div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="500"
+                      value={priceRange[0]}
+                      onChange={(e) => setPriceRange([parseInt(e.target.value), priceRange[1]])}
+                      className="absolute w-full h-full opacity-0 cursor-pointer"
+                    />
+                    <input
+                      type="range"
+                      min="0"
+                      max="500"
+                      value={priceRange[1]}
+                      onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
+                      className="absolute w-full h-full opacity-0 cursor-pointer"
+                    />
                   </div>
                 </div>
               </div>
 
-              {/* Rating Filter */}
+              {/* Rating */}
               <div className="mb-8">
-                <h3 className="font-bold text-lg text-gray-900 mb-4">Customer Rating</h3>
+                <div className="flex items-center space-x-2 mb-4">
+                  <div className="w-4 h-px bg-gray-900"></div>
+                  <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wider">Rating</h3>
+                </div>
                 <div className="space-y-2">
                   {[4.5, 4.0, 3.5, 3.0, 0].map((rating) => (
                     <button
                       key={rating}
                       onClick={() => setMinRating(rating)}
-                      className={`flex items-center justify-between w-full px-3 py-2 rounded-lg transition-colors ${
+                      className={`flex items-center justify-between w-full px-2 py-1.5 rounded transition-colors ${
                         minRating === rating
-                          ? 'bg-indigo-50 text-indigo-600'
+                          ? 'bg-gray-50'
                           : 'hover:bg-gray-50'
                       }`}
                     >
                       <div className="flex items-center">
                         {rating > 0 ? (
                           <>
-                            {renderStars(rating)}
-                            <span className="ml-2 text-gray-700">& above</span>
+                            <div className="flex">
+                              {renderStars(rating)}
+                            </div>
+                            <span className="ml-2 text-sm text-gray-700">& up</span>
                           </>
                         ) : (
-                          <span className="text-gray-700">All Ratings</span>
+                          <span className="text-sm text-gray-700">All Ratings</span>
                         )}
                       </div>
-                      <span className="text-sm text-gray-500">
+                      <span className="text-xs text-gray-500">
                         {rating > 0 
                           ? allProducts.filter(p => p.rating >= rating).length
                           : allProducts.length
@@ -870,15 +579,19 @@ const ProductsPage = () => {
                 </div>
               </div>
 
-              {/* Brand Filter - Placeholder */}
-              <div>
-                <h3 className="font-bold text-lg text-gray-900 mb-4">Popular Brands</h3>
+              {/* Brands */}
+              <div className="mb-8">
+                <div className="flex items-center space-x-2 mb-4">
+                  <div className="w-4 h-px bg-gray-900"></div>
+                  <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wider">Brands</h3>
+                </div>
                 <div className="space-y-2">
-                  {['Nike', 'Adidas', 'Levi\'s', 'Zara', 'H&M', 'Gucci'].map((brand) => (
-                    <label key={brand} className="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-gray-50">
+                  {uniqueBrands.map((brand) => (
+                    <label key={brand} className="flex items-center space-x-3 cursor-pointer p-1 rounded hover:bg-gray-50">
                       <input 
                         type="checkbox" 
-                        className="rounded text-indigo-600 focus:ring-indigo-500" 
+                        className="rounded border-gray-300 text-gray-900 focus:ring-gray-900" 
+                        checked={selectedBrands.includes(brand)}
                         onChange={(e) => {
                           if (e.target.checked) {
                             setSelectedBrands([...selectedBrands, brand]);
@@ -887,13 +600,13 @@ const ProductsPage = () => {
                           }
                         }}
                       />
-                      <span className="text-gray-700">{brand}</span>
+                      <span className="text-sm text-gray-700">{brand}</span>
                     </label>
                   ))}
                 </div>
               </div>
 
-              {/* Clear Filters Button */}
+              {/* Clear Filters */}
               {(priceRange[0] > 0 || priceRange[1] < 500 || minRating > 0 || selectedBrands.length > 0) && (
                 <button
                   onClick={() => {
@@ -901,7 +614,7 @@ const ProductsPage = () => {
                     setMinRating(0);
                     setSelectedBrands([]);
                   }}
-                  className="w-full mt-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-medium hover:border-gray-400 hover:bg-gray-50 transition-colors"
+                  className="w-full py-2 border border-gray-300 text-gray-700 rounded text-sm hover:border-gray-900 hover:bg-gray-50 transition-colors"
                 >
                   Clear All Filters
                 </button>
@@ -911,8 +624,8 @@ const ProductsPage = () => {
 
           {/* Main Content */}
           <div className="lg:w-3/4">
-            {/* Filters and Sorting Bar */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            {/* Toolbar */}
+            <div className="bg-white border border-gray-200 rounded-lg p-4 mb-6">
               <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                 {/* Filter Tabs */}
                 <div className="flex flex-wrap gap-2">
@@ -920,29 +633,42 @@ const ProductsPage = () => {
                     <button
                       key={filter.key}
                       onClick={() => setActiveFilter(filter.key)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
+                      className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-300 ${
                         activeFilter === filter.key
-                          ? 'bg-indigo-600 text-white shadow-lg'
+                          ? 'bg-gray-900 text-white'
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                       }`}
                     >
-                      <i className={filter.icon}></i>
-                      <span>{filter.label}</span>
+                      {filter.label}
                     </button>
                   ))}
                 </div>
 
-                {/* Results Count and Sorting */}
+                {/* View Toggle and Sort */}
                 <div className="flex items-center space-x-4">
-                  <span className="text-gray-600">
-                    {sortedProducts.length} products
-                  </span>
-                  <span className="text-gray-300">|</span>
-                  <span className="text-gray-600 font-medium">Sort by:</span>
+                  <div className="flex items-center space-x-1">
+                    <button
+                      onClick={() => setViewMode('grid')}
+                      className={`p-2 rounded ${viewMode === 'grid' ? 'bg-gray-100' : 'hover:bg-gray-50'}`}
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => setViewMode('list')}
+                      className={`p-2 rounded ${viewMode === 'list' ? 'bg-gray-100' : 'hover:bg-gray-50'}`}
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                      </svg>
+                    </button>
+                  </div>
+                  
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-transparent"
                   >
                     <option value="featured">Featured</option>
                     <option value="newest">Newest</option>
@@ -958,33 +684,36 @@ const ProductsPage = () => {
             {/* Products Grid */}
             {currentProducts.length > 0 ? (
               <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {currentProducts.map((product) => (
+                <div className={`grid gap-6 ${
+                  viewMode === 'grid' 
+                    ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' 
+                    : 'grid-cols-1'
+                }`}>
+                  {currentProducts.map((product, index) => (
                     <Link
                       key={product.id}
                       to={`/product/${product.id}`}
-                      className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-1 block"
+                      className={`group bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 block ${
+                        viewMode === 'list' ? 'flex flex-col md:flex-row' : ''
+                      }`}
+                      style={{ animationDelay: `${index * 50}ms` }}
                     >
                       {/* Product Image */}
-                      <div className="relative h-64 overflow-hidden">
+                      <div className={`relative overflow-hidden bg-gray-100 ${
+                        viewMode === 'list' ? 'md:w-1/3' : 'aspect-square'
+                      }`}>
                         <img
                           src={product.image}
                           alt={product.name}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                         
                         {/* Tags */}
-                        <div className="absolute top-3 left-3 flex flex-col gap-2">
-                          {product.tags.map((tag, index) => (
+                        <div className="absolute top-3 left-3">
+                          {product.tags.map((tag, tagIndex) => (
                             <span
-                              key={index}
-                              className={`px-3 py-1 rounded-full text-xs font-bold text-white ${
-                                tag === 'Bestseller' ? 'bg-orange-500' :
-                                tag.includes('%') ? 'bg-green-500' :
-                                tag === 'New' ? 'bg-blue-500' :
-                                tag === 'Limited' ? 'bg-purple-500' :
-                                'bg-gray-800'
-                              }`}
+                              key={tagIndex}
+                              className="inline-block px-2 py-1 bg-white text-gray-900 text-xs font-medium rounded mr-1 mb-1"
                             >
                               {tag}
                             </span>
@@ -995,50 +724,23 @@ const ProductsPage = () => {
                         <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-center gap-2">
                           <button
                             onClick={(e) => handleAddToCart(product, e)}
-                            disabled={!product.inStock}
-                            className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-colors ${
-                              product.inStock
-                                ? 'bg-white hover:bg-gray-100'
-                                : 'bg-gray-200 cursor-not-allowed'
-                            }`}
-                            title="Quick Add to Cart"
+                            className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow hover:bg-gray-50 transition-colors"
+                            title="Add to Cart"
                           >
-                            <i className={`fas fa-shopping-cart ${product.inStock ? 'text-gray-700' : 'text-gray-400'}`}></i>
-                          </button>
-
-                          <button
-                            onClick={(e) => handleQuickView(product, e)}
-                            className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 transition-colors"
-                            title="Quick View"
-                          >
-                            <i className="fas fa-eye text-gray-700"></i>
-                          </button>
-
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              e.preventDefault();
-                              // Add to wishlist logic
-                              const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-                              if (!wishlist.includes(product.id)) {
-                                wishlist.push(product.id);
-                                localStorage.setItem('wishlist', JSON.stringify(wishlist));
-                                alert(`${product.name} added to wishlist!`);
-                              }
-                            }}
-                            className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 transition-colors"
-                            title="Add to Wishlist"
-                          >
-                            <i className="far fa-heart text-gray-700"></i>
+                            <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                            </svg>
                           </button>
                         </div>
                       </div>
 
                       {/* Product Info */}
-                      <div className="p-5">
-                        <div className="mb-2">
-                          <span className="text-sm text-gray-500">{product.category} • {product.subcategory}</span>
-                          <h3 className="font-bold text-lg text-gray-900 group-hover:text-indigo-600 transition-colors">
+                      <div className={`p-4 ${viewMode === 'list' ? 'md:w-2/3' : ''}`}>
+                        <div className="mb-3">
+                          <span className="text-xs tracking-wider uppercase text-gray-500 mb-1 block">
+                            {product.category} • {product.brand}
+                          </span>
+                          <h3 className="text-lg font-light text-gray-900 group-hover:text-gray-700 transition-colors">
                             {product.name}
                           </h3>
                         </div>
@@ -1048,65 +750,61 @@ const ProductsPage = () => {
                           <div className="flex">
                             {renderStars(product.rating)}
                           </div>
-                          <span className="text-sm text-gray-600 ml-2">
+                          <span className="text-xs text-gray-600 ml-2">
                             {product.rating} ({product.reviews})
                           </span>
                         </div>
 
+                        {/* Description (List view only) */}
+                        {viewMode === 'list' && (
+                          <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                            {product.description}
+                          </p>
+                        )}
+
                         {/* Price */}
                         <div className="flex items-center mb-4">
-                          <span className="text-2xl font-bold text-gray-900">${product.price.toFixed(2)}</span>
+                          <span className="text-xl font-light text-gray-900">
+                            ${product.price.toFixed(2)}
+                          </span>
                           {product.originalPrice > product.price && (
                             <>
                               <span className="ml-2 text-sm text-gray-500 line-through">
                                 ${product.originalPrice.toFixed(2)}
                               </span>
-                              <span className="ml-2 text-sm font-bold text-green-600">
+                              <span className="ml-2 text-xs font-medium text-gray-900 bg-gray-100 px-1.5 py-0.5 rounded">
                                 Save ${(product.originalPrice - product.price).toFixed(2)}
                               </span>
                             </>
                           )}
                         </div>
 
-                        {/* Colors Preview */}
-                        {product.colors && product.colors.length > 0 && (
-                          <div className="flex items-center mb-3">
-                            <span className="text-sm text-gray-600 mr-2">Colors:</span>
-                            <div className="flex gap-2">
+                        {/* Colors (Grid view only) */}
+                        {viewMode === 'grid' && product.colors && product.colors.length > 0 && (
+                          <div className="flex items-center mb-4">
+                            <div className="flex -space-x-2">
                               {product.colors.slice(0, 3).map((color, index) => (
                                 <div
                                   key={index}
-                                  className={`w-5 h-5 rounded-full ${color.value} ${color.value.includes('border') ? 'border border-gray-300' : ''}`}
+                                  className={`w-5 h-5 rounded-full border border-gray-200 ${color.value}`}
                                   title={color.name}
                                 />
                               ))}
-                              {product.colors.length > 3 && (
-                                <span className="text-xs text-gray-500">
-                                  +{product.colors.length - 3} more
-                                </span>
-                              )}
                             </div>
+                            {product.colors.length > 3 && (
+                              <span className="text-xs text-gray-500 ml-2">
+                                +{product.colors.length - 3}
+                              </span>
+                            )}
                           </div>
                         )}
 
                         {/* Add to Cart Button */}
                         <button
                           onClick={(e) => handleAddToCart(product, e)}
-                          disabled={!product.inStock}
-                          className={`w-full py-3 rounded-xl font-medium transition-all duration-300 ${
-                            product.inStock
-                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-lg hover:scale-105'
-                              : 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                          }`}
+                          className="w-full py-2 border border-gray-900 text-gray-900 text-sm font-medium hover:bg-gray-900 hover:text-white transition-colors duration-300 rounded"
                         >
-                          {product.inStock ? (
-                            <>
-                              <i className="fas fa-shopping-cart mr-2"></i>
-                              Add to Cart
-                            </>
-                          ) : (
-                            'Out of Stock'
-                          )}
+                          Add to Bag
                         </button>
                       </div>
                     </Link>
@@ -1120,74 +818,54 @@ const ProductsPage = () => {
                       <button
                         onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                         disabled={currentPage === 1}
-                        className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="p-2 border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
-                        <i className="fas fa-chevron-left"></i>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
                       </button>
                       
-                      {/* First page */}
-                      <button
-                        onClick={() => setCurrentPage(1)}
-                        className={`w-10 h-10 rounded-lg font-medium ${
-                          currentPage === 1
-                            ? 'bg-indigo-600 text-white'
-                            : 'border border-gray-300 hover:bg-gray-50'
-                        }`}
-                      >
-                        1
-                      </button>
-                      
-                      {/* Ellipsis if needed */}
-                      {currentPage > 3 && (
-                        <span className="px-2">...</span>
-                      )}
-                      
-                      {/* Middle pages */}
                       {[...Array(totalPages)].map((_, i) => {
                         const pageNum = i + 1;
-                        if (pageNum > 1 && pageNum < totalPages && Math.abs(pageNum - currentPage) <= 1) {
+                        if (
+                          pageNum === 1 || 
+                          pageNum === totalPages || 
+                          Math.abs(pageNum - currentPage) <= 1
+                        ) {
                           return (
                             <button
                               key={pageNum}
                               onClick={() => setCurrentPage(pageNum)}
-                              className={`w-10 h-10 rounded-lg font-medium ${
+                              className={`w-8 h-8 rounded text-sm font-medium ${
                                 currentPage === pageNum
-                                  ? 'bg-indigo-600 text-white'
+                                  ? 'bg-gray-900 text-white'
                                   : 'border border-gray-300 hover:bg-gray-50'
                               }`}
                             >
                               {pageNum}
                             </button>
                           );
+                        } else if (
+                          (pageNum === 2 && currentPage > 3) ||
+                          (pageNum === totalPages - 1 && currentPage < totalPages - 2)
+                        ) {
+                          return (
+                            <span key={pageNum} className="px-1">
+                              ...
+                            </span>
+                          );
                         }
                         return null;
                       })}
                       
-                      {/* Ellipsis if needed */}
-                      {currentPage < totalPages - 2 && totalPages > 5 && (
-                        <span className="px-2">...</span>
-                      )}
-                      
-                      {/* Last page */}
-                      {totalPages > 1 && (
-                        <button
-                          onClick={() => setCurrentPage(totalPages)}
-                          className={`w-10 h-10 rounded-lg font-medium ${
-                            currentPage === totalPages
-                              ? 'bg-indigo-600 text-white'
-                              : 'border border-gray-300 hover:bg-gray-50'
-                          }`}
-                        >
-                          {totalPages}
-                        </button>
-                      )}
-                      
                       <button
                         onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                         disabled={currentPage === totalPages}
-                        className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="p-2 border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
-                        <i className="fas fa-chevron-right"></i>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
                       </button>
                     </div>
                   </div>
@@ -1195,75 +873,80 @@ const ProductsPage = () => {
               </>
             ) : (
               <div className="text-center py-16">
-                <div className="w-24 h-24 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
-                  <i className="fas fa-search text-3xl text-gray-400"></i>
+                <div className="w-16 h-16 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">No Products Found</h3>
+                <h3 className="text-xl font-light text-gray-900 mb-2">No Products Found</h3>
                 <p className="text-gray-600 mb-6">
-                  We couldn't find any products matching your criteria.
+                  Try adjusting your filters or search terms
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <button
-                    onClick={() => {
-                      setActiveFilter('all');
-                      setPriceRange([0, 500]);
-                      setMinRating(0);
-                      setSelectedBrands([]);
-                      if (category || subcategory || searchQuery) {
-                        navigate('/products');
-                      }
-                    }}
-                    className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
-                  >
-                    Clear Filters
-                  </button>
-                  <Link
-                    to="/products"
-                    className="px-6 py-3 border-2 border-indigo-600 text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all duration-300"
-                  >
-                    Browse All Products
-                  </Link>
-                </div>
+                <button
+                  onClick={() => {
+                    setActiveFilter('all');
+                    setPriceRange([0, 500]);
+                    setMinRating(0);
+                    setSelectedBrands([]);
+                    if (category || subcategory || searchQuery) {
+                      navigate('/products');
+                    }
+                  }}
+                  className="px-6 py-2 bg-gray-900 text-white rounded font-medium hover:bg-gray-800 transition-colors duration-300"
+                >
+                  Clear Filters
+                </button>
               </div>
             )}
           </div>
         </div>
       </div>
 
-      {/* Styles */}
       <style jsx global>{`
-        @keyframes slideIn {
+        @keyframes fadeIn {
           from {
-            transform: translateX(100%);
             opacity: 0;
+            transform: translateY(10px);
           }
           to {
-            transform: translateX(0);
             opacity: 1;
+            transform: translateY(0);
           }
         }
-        
-        .animate-slideIn {
-          animation: slideIn 0.3s ease-out;
+
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out forwards;
         }
-        
-        /* Custom scrollbar for products grid */
-        .grid::-webkit-scrollbar {
-          width: 8px;
+
+        .grid > div {
+          animation: fadeIn 0.5s ease-out forwards;
+          opacity: 0;
         }
-        
-        .grid::-webkit-scrollbar-track {
-          background: #f1f1f1;
-          border-radius: 4px;
+
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
-        
-        .grid::-webkit-scrollbar-thumb {
-          background: #888;
-          border-radius: 4px;
+
+        /* Custom range slider styles */
+        input[type="range"]::-webkit-slider-thumb {
+          appearance: none;
+          width: 16px;
+          height: 16px;
+          background: #111827;
+          border-radius: 50%;
+          cursor: pointer;
         }
-        
-        .grid::-webkit-scrollbar-thumb:hover {
-          background: #555;
+
+        input[type="range"]::-moz-range-thumb {
+          width: 16px;
+          height: 16px;
+          background: #111827;
+          border-radius: 50%;
+          cursor: pointer;
+          border: none;
         }
       `}</style>
     </div>
